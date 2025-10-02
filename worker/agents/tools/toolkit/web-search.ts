@@ -1,3 +1,4 @@
+/// <reference path="../../../../worker-configuration.d.ts" />
 // Remove this import at the top:
 // import { env } from 'cloudflare:workers'
 import { ToolDefinition } from '../types';

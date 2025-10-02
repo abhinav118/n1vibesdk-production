@@ -1,3 +1,4 @@
+/// <reference path="../../../../worker-configuration.d.ts" />
 // Simple weather tool for testing tool calling framework
 import { ErrorResult, ToolDefinition } from "../types";
 
@@ -15,7 +16,7 @@ export interface WeatherResult {
 type WeatherToolResult = WeatherResult | ErrorResult;
 
 // Add env parameter
-const weatherToolImplementation = async (args: WeatherArgs, env: Env): Promise<WeatherToolResult> => {
+const weatherToolImplementation = async (args: WeatherArgs, _env: Env): Promise<WeatherToolResult> => {
     try {
         return {
             location: args.location,

@@ -1,3 +1,4 @@
+/// <reference path="../../../worker-configuration.d.ts" />
 import { ChatCompletionFunctionTool } from 'openai/resources';
 export interface MCPServerConfig {
 	name: string;
@@ -31,6 +32,6 @@ export type ToolDefinition<
     onComplete?: (args: TArgs, result: TResult) => void;
 };
 
-export type ExtractToolArgs<T> = T extends ToolImplementation<infer A, any, any> ? A : never;
+export type ExtractToolArgs<T> = T extends ToolImplementation<infer A, any> ? A : never;
 
-export type ExtractToolResult<T> = T extends ToolImplementation<any, infer R, any> ? R : never;
+export type ExtractToolResult<T> = T extends ToolImplementation<any, infer R> ? R : never;

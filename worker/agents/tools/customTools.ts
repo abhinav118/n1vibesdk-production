@@ -1,3 +1,4 @@
+/// <reference path="../../../worker-configuration.d.ts" />
 import type { ToolDefinition } from './types';
 
 export async function executeToolWithDefinition<TArgs, TResult>(
