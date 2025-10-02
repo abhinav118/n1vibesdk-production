@@ -360,7 +360,7 @@ export type InferResponseString = {
 /**
  * Execute all tool calls from OpenAI response
  */
-async function executeToolCalls(openAiToolCalls: ChatCompletionMessageFunctionToolCall[], originalDefinitions: ToolDefinition[]): Promise<ToolCallResult[]> {
+async function executeToolCalls(openAiToolCalls: ChatCompletionMessageFunctionToolCall[], originalDefinitions: ToolDefinition[], env: Env): Promise<ToolCallResult[]> {
     const toolDefinitions = new Map(originalDefinitions.map(td => [td.function.name, td]));
     return Promise.all(
         openAiToolCalls.map(async (tc) => {
@@ -370,7 +370,7 @@ async function executeToolCalls(openAiToolCalls: ChatCompletionMessageFunctionTo
                 if (!td) {
                     throw new Error(`Tool ${tc.function.name} not found`);
                 }
-                const result = await executeToolWithDefinition(td, args);
+                const result = await executeToolWithDefinition(td, args, env);
                 console.log(`Tool execution result for ${tc.function.name}:`, result);
                 return {
                     id: tc.id,
@@ -645,7 +645,7 @@ export async function infer<OutputSchema extends z.AnyZodObject>({
         let executedToolCalls: ToolCallResult[] = [];
         if (tools) {
             // console.log(`Tool calls:`, JSON.stringify(toolCalls, null, 2), 'definition:', JSON.stringify(tools, null, 2));
-            executedToolCalls = await executeToolCalls(toolCalls, tools);
+            executedToolCalls = await executeToolCalls(toolCalls, tools, env);
         }
 
         if (executedToolCalls.length) {
