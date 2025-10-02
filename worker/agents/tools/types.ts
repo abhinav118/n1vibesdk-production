@@ -18,8 +18,9 @@ export interface ToolCallResult {
 	result?: unknown;
 }
 
+// Update to include env parameter
 export type ToolImplementation<TArgs = Record<string, unknown>, TResult = unknown> = 
-	(args: TArgs) => Promise<TResult>;
+	(args: TArgs, env: Env) => Promise<TResult>;
 
 export type ToolDefinition<
     TArgs = Record<string, unknown>,
@@ -30,6 +31,6 @@ export type ToolDefinition<
     onComplete?: (args: TArgs, result: TResult) => void;
 };
 
-export type ExtractToolArgs<T> = T extends ToolImplementation<infer A, any> ? A : never;
+export type ExtractToolArgs<T> = T extends ToolImplementation<infer A, any, any> ? A : never;
 
-export type ExtractToolResult<T> = T extends ToolImplementation<any, infer R> ? R : never;
+export type ExtractToolResult<T> = T extends ToolImplementation<any, infer R, any> ? R : never;

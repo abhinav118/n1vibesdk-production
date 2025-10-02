@@ -14,7 +14,8 @@ export interface WeatherResult {
 
 type WeatherToolResult = WeatherResult | ErrorResult;
 
-const weatherToolImplementation = async (args: WeatherArgs): Promise<WeatherToolResult> => {
+// Add env parameter
+const weatherToolImplementation = async (args: WeatherArgs, env: Env): Promise<WeatherToolResult> => {
     try {
         return {
             location: args.location,
